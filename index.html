@@ -6,11 +6,11 @@
   CDN ou Google Fonts. Funciona sem internet.
 
   Este é o arquivo que MONTA a página:
-    estilos/ → CSS (aparência)
-    scripts/ → JavaScript (comportamento)
-    midia/   → imagens, vídeo e os 192 frames da animação
+    assets/css/ → CSS (aparência)
+    assets/js/ → JavaScript (comportamento)
+    assets/  → imagens, vídeo e os 192 frames da animação
 
-  Comece pelo LEIA-ME.md.
+  Comece pelo README.md.
 
   Atenção: "Artools", o produto, os números e as afirmações técnicas
   são FICTÍCIOS (projeto de estudo). Veja os avisos na própria página.
@@ -25,16 +25,16 @@
     <meta name="description" content="Página de estudo (produto fictício): landing page da caneta Artools Precision Series feita só com HTML, CSS e JavaScript.">
 
     <!-- Nossos estilos. A ordem importa: o que vem depois pode sobrescrever o anterior. -->
-    <link rel="stylesheet" href="estilos/01-base.css">
-    <link rel="stylesheet" href="estilos/02-texto-contorno.css">
-    <link rel="stylesheet" href="estilos/03-ruido-granulado.css">
-    <link rel="stylesheet" href="estilos/04-navbar.css">
-    <link rel="stylesheet" href="estilos/05-hero.css">
-    <link rel="stylesheet" href="estilos/06-secao-tecnologia.css">
-    <link rel="stylesheet" href="estilos/07-cards-lanterna.css">
-    <link rel="stylesheet" href="estilos/08-vitrine.css">
-    <link rel="stylesheet" href="estilos/09-rodape-e-modal.css">
-    <link rel="stylesheet" href="estilos/10-animacoes-surgimento.css">
+    <link rel="stylesheet" href="assets/css/01-base.css">
+    <link rel="stylesheet" href="assets/css/02-texto-contorno.css">
+    <link rel="stylesheet" href="assets/css/03-ruido-granulado.css">
+    <link rel="stylesheet" href="assets/css/04-navbar.css">
+    <link rel="stylesheet" href="assets/css/05-hero.css">
+    <link rel="stylesheet" href="assets/css/06-secao-tecnologia.css">
+    <link rel="stylesheet" href="assets/css/07-cards-lanterna.css">
+    <link rel="stylesheet" href="assets/css/08-vitrine.css">
+    <link rel="stylesheet" href="assets/css/09-rodape-e-modal.css">
+    <link rel="stylesheet" href="assets/css/10-animacoes-surgimento.css">
 </head>
 
 <body>
@@ -86,7 +86,7 @@
         </symbol>
     </svg>
 
-    <!-- Granulado por cima de tudo (estilos/03). Decorativo. -->
+    <!-- Granulado por cima de tudo (assets/css/03). Decorativo. -->
     <div class="ruido-global" aria-hidden="true"></div>
 
     <!-- ===================== 01 — NAVBAR ===================== -->
@@ -133,11 +133,11 @@
                 <!-- CAMADA 1: imagem da caneta.
                      A <img> estática (frame 1) aparece SEMPRE: sem JavaScript ou se a
                      sequência falhar, ela é o plano B. O <canvas> fica por cima e é
-                     desenhado pelo JS (scripts/04-hero-frames.js). -->
+                     desenhado pelo JS (assets/js/04-hero-frames.js). -->
                 <div class="hero-fundo">
                     <div class="hero-quadro">
                         <img class="hero-imagem-estatica" id="hero-imagem-estatica"
-                            src="midia/frames/frame_0001.jpg" width="1280" height="720"
+                            src="assets/images/frames/frame_0001.jpg" width="1280" height="720"
                             alt="Caneta Artools Precision Series sobre fundo claro">
                         <canvas class="hero-canvas" id="hero-canvas" width="1280" height="720" aria-hidden="true"></canvas>
                     </div>
@@ -225,7 +225,7 @@
                         <div class="tecnologia-imagem-fundo" aria-hidden="true"></div>
                         <div class="tecnologia-moldura revelar atraso-3">
                             <div class="tecnologia-scanner" aria-hidden="true"></div>
-                            <img class="tecnologia-foto" src="midia/imagens/artools_tech_feature.jpg"
+                            <img class="tecnologia-foto" src="assets/images/artools_tech_feature.jpg"
                                 width="640" height="640" loading="lazy"
                                 alt="Detalhe técnico da caneta Artools">
                             <div class="cartao-vidro cartao-vidro-topo">
@@ -347,7 +347,7 @@
                  O JS o pausa quando a seção sai da tela. -->
             <video class="vitrine-video" id="vitrine-video" autoplay loop muted playsinline preload="metadata"
                 aria-hidden="true" tabindex="-1">
-                <source src="midia/videos/video.mp4" type="video/mp4">
+                <source src="assets/videos/video.mp4" type="video/mp4">
             </video>
             <div class="vitrine-pelicula" aria-hidden="true"></div>
 
@@ -417,12 +417,12 @@
 
     <!-- SCRIPTS: no fim do <body>, quando o HTML acima já existe.
          Cada arquivo é independente: se um falhar, os outros continuam. -->
-    <script src="scripts/01-menu-movel.js"></script>
-    <script src="scripts/02-modal-compra.js"></script>
-    <script src="scripts/03-surgimento-ao-rolar.js"></script>
-    <script src="scripts/04-hero-frames.js"></script>
-    <script src="scripts/05-cards-lanterna.js"></script>
-    <script src="scripts/06-video-vitrine.js"></script>
+    <script src="assets/js/01-menu-movel.js"></script>
+    <script src="assets/js/02-modal-compra.js"></script>
+    <script src="assets/js/03-surgimento-ao-rolar.js"></script>
+    <script src="assets/js/04-hero-frames.js"></script>
+    <script src="assets/js/05-cards-lanterna.js"></script>
+    <script src="assets/js/06-video-vitrine.js"></script>
 </body>
 
 </html>

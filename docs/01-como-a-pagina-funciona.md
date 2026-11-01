@@ -4,8 +4,8 @@
 | Camada | Papel | Onde |
 |---|---|---|
 | HTML | Estrutura e conteúdo | `index.html` |
-| CSS | Aparência e efeitos | `estilos/` |
-| JavaScript | Comportamento | `scripts/` |
+| CSS | Aparência e efeitos | `assets/css/` |
+| JavaScript | Comportamento | `assets/js/` |
 
 Regra de ouro deste projeto: **o conteúdo precisa ser legível mesmo se o JavaScript falhar.** Por isso o texto só é escondido (para animar) depois que o JS confirma que está pronto.
 

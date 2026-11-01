@@ -18,7 +18,7 @@
 | Alegações sem comprovação como se fossem reais | Avisos "conteúdo fictício" |
 
 ## ⚠️ Ainda existe (bom para estudar)
-- **Fontes:** sem Inter/Space Grotesk/JetBrains Mono instaladas, o visual dos títulos muda um pouco. Solução permitida: colocar os arquivos `.woff2` (com licença que permita) em `midia/fontes/` e declarar `@font-face`.
+- **Fontes:** sem Inter/Space Grotesk/JetBrains Mono instaladas, o visual dos títulos muda um pouco. Solução permitida: colocar os arquivos `.woff2` (com licença que permita) em `assets/fonts/` e declarar `@font-face`.
 - **Canvas 1280×720:** em telas Retina/4K pode ficar levemente suave. Dá para ajustar com `window.devicePixelRatio` (e frames maiores).
 - **192 JPGs:** ~9 MB. Reduzir a quantidade de frames ou usar WebP diminuiria o peso.
 - **Marca d'água "Veo"** nos frames: vem do material de origem.

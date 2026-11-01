@@ -2,7 +2,7 @@
    ARQUIVO: 05-cards-lanterna.js
    O QUE FAZ: descobre onde o mouse está DENTRO de cada card e
               entrega essa posição ao CSS, que desenha o brilho
-              (estilos/07-cards-lanterna.css).
+              (assets/css/07-cards-lanterna.css).
    ============================================================= */
 "use strict";
 

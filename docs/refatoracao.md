@@ -11,32 +11,9 @@ Removidos: Tailwind, GSAP/ScrollTrigger, Iconify, Google Fonts e qualquer CDN.
 - **Recomendado:** servidor estático. No VS Code, extensão *Live Server* → *Open with Live Server*. Ou, no terminal, dentro da pasta: `python3 -m http.server 8000` e abra `http://localhost:8000`.
 - **Também funciona** com dois cliques no `index.html` (o projeto não usa módulos ES nem `fetch`, que são bloqueados em `file://`).
 
-## 🗂️ Mapa das pastas
+## Organização do projeto
 
-```
-ARTOOLS_ESTUDO_PURO/
-├── index.html                  monta a página (HTML semântico + sprite de ícones SVG)
-├── estilos/
-│   ├── 01-base.css                variáveis (cores/fontes), reset, foco, ícones
-│   ├── 02-texto-contorno.css      letras vazadas
-│   ├── 03-ruido-granulado.css     textura de grão (SVG dentro do CSS)
-│   ├── 04-navbar.css              navbar + menu móvel
-│   ├── 05-hero.css                Hero, canvas, botões, indicador de carregamento
-│   ├── 06-secao-tecnologia.css    seção Tecnologia (+ peças compartilhadas)
-│   ├── 07-cards-lanterna.css      cards com brilho que segue o mouse
-│   ├── 08-vitrine.css             vídeo + card brilhante
-│   ├── 09-rodape-e-modal.css      rodapé e janela de demonstração
-│   └── 10-animacoes-surgimento.css  surgir ao rolar + prefers-reduced-motion
-├── scripts/                    (cada um é independente; se um falhar, os outros funcionam)
-│   ├── 01-menu-movel.js           abrir/fechar menu, aria-*, tecla Esc
-│   ├── 02-modal-compra.js         <dialog> de demonstração
-│   ├── 03-surgimento-ao-rolar.js  IntersectionObserver
-│   ├── 04-hero-frames.js          ⭐ rolagem → frame no canvas, carregamento dos 192 frames
-│   ├── 05-cards-lanterna.js       posição do mouse nos cards
-│   └── 06-video-vitrine.js        pausa o vídeo fora da tela
-├── midia/  frames/ (192 JPGs 1280×720) · imagens/ · videos/
-└── guias/  explicações em português
-```
+Consulte o [README](../README.md) para a estrutura atual e as instruções de execução.
 
 ## 🔁 O que mudou em relação a `ARTOOLS_ESTUDO`
 
@@ -70,8 +47,8 @@ Artools, o produto e a empresa **não existem**. Itens como "Engenharia Suíça"
 
 ## 🧭 Ordem de estudo sugerida
 
-1. `guias/01-como-a-pagina-funciona.md`
-2. `index.html` (de cima para baixo) + `guias/02-conceitos-css.md` + `estilos/01` → `10`
-3. `scripts/05`, `02`, `01`, `03` (curtos) + `guias/03-conceitos-javascript.md`
-4. `scripts/04-hero-frames.js` (o mais avançado)
-5. `guias/04-problemas-e-melhorias.md` e `guias/05-exercicios.md`
+1. `docs/01-como-a-pagina-funciona.md`
+2. `index.html` (de cima para baixo) + `docs/02-conceitos-css.md` + `assets/css/01` → `10`
+3. `assets/js/05`, `02`, `01`, `03` (curtos) + `docs/03-conceitos-javascript.md`
+4. `assets/js/04-hero-frames.js` (o mais avançado)
+5. `docs/04-problemas-e-melhorias.md` e `docs/05-exercicios.md`

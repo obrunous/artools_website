@@ -11,7 +11,7 @@
 
    Se este arquivo falhar, o menu NÃO é escondido: a classe
    .menu-pronto só é adicionada no final da preparação, e é ela
-   que liga o visual do menu recolhido (estilos/04-navbar.css).
+   que liga o visual do menu recolhido (assets/css/04-navbar.css).
    ============================================================= */
 "use strict";
 

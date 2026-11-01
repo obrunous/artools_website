@@ -7,7 +7,7 @@
    - .hero-palco, dentro dela, tem 1 tela e fica "grudada" no topo
      (position: sticky) enquanto você rola.
    - O JavaScript mede quanto da .hero já passou e troca o frame
-     desenhado no canvas (scripts/04-hero-frames.js).
+     desenhado no canvas (assets/js/04-hero-frames.js).
    vh = "viewport height": 1vh = 1% da altura da janela.
    ============================================================= */
 .hero {

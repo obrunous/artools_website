@@ -9,7 +9,7 @@
    e calcular posições na mão.
 
    Este script só adiciona classes. A animação em si está no CSS
-   (estilos/10-animacoes-surgimento.css).
+   (assets/css/10-animacoes-surgimento.css).
    ============================================================= */
 "use strict";
 

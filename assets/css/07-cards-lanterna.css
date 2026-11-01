@@ -4,7 +4,7 @@
               "lanterna" (um brilho que segue o mouse).
 
    COMO O EFEITO FUNCIONA:
-   1. O JS (scripts/05-cards-lanterna.js) escreve no card:
+   1. O JS (assets/js/05-cards-lanterna.js) escreve no card:
         --mouse-x: 120px; --mouse-y: 80px
    2. Aqui o CSS lê esses valores com var(--mouse-x) e desenha
       um gradiente circular exatamente nesse ponto.

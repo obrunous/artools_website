@@ -8,11 +8,11 @@
      D) carrega os frames aos poucos, com barra de progresso.
 
    IDEIAS-CHAVE
-   - Um vídeo foi cortado em 192 fotos (midia/frames/).
+   - Um vídeo foi cortado em 192 fotos (assets/images/frames/).
    - A Hero tem 200vh e o palco fica "grudado" (sticky). Quanto mais
      você rola, maior o progresso, e maior o número do frame.
    - O JavaScript NÃO anima o texto: só escreve a variável CSS
-     --saida (0 a 1). O CSS (estilos/05-hero.css) faz o resto.
+     --saida (0 a 1). O CSS (assets/css/05-hero.css) faz o resto.
    - A imagem estática do HTML é o plano B: aparece sem JS ou se
      os frames falharem.
    ============================================================= */
@@ -34,10 +34,10 @@ function iniciarHero() {
     if (!secao || !palco) return; // sem Hero, não há o que fazer
 
     const TOTAL_DE_FRAMES = 192;
-    const PASTA_DOS_FRAMES = "midia/frames/";
+    const PASTA_DOS_FRAMES = "assets/images/frames/";
     const CARREGAMENTOS_SIMULTANEOS = 6; // quantas imagens baixam ao mesmo tempo
     const TENTATIVAS_POR_FRAME = 2;      // 1 tentativa + 1 nova tentativa se falhar
-    const IMAGEM_RESERVA = "midia/imagens/artools_tech_feature.jpg";
+    const IMAGEM_RESERVA = "assets/images/artools_tech_feature.jpg";
 
     // Quanto da rolagem (em fração da altura da Hero) leva o texto a sair por completo.
     const FRACAO_DA_SAIDA_DO_TEXTO = 0.25;
