@@ -1,0 +1,371 @@
+/* =============================================================
+   ARQUIVO: 05-hero.css
+   O QUE FAZ: a Hero (primeira tela) com a caneta animada.
+
+   O TRUQUE "STICKY + ALTURA GRANDE":
+   - .hero tem 200vh (2 telas) de altura.
+   - .hero-palco, dentro dela, tem 1 tela e fica "grudada" no topo
+     (position: sticky) enquanto você rola.
+   - O JavaScript mede quanto da .hero já passou e troca o frame
+     desenhado no canvas (scripts/04-hero-frames.js).
+   vh = "viewport height": 1vh = 1% da altura da janela.
+   ============================================================= */
+.hero {
+    position: relative;
+    height: 200vh;
+    background: var(--cor-fundo);
+}
+
+.hero-palco {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ---------- CAMADA 1: imagem de fundo (frames) ---------- */
+.hero-fundo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--pedra-100);
+}
+
+/* Imagem estática + canvas, empilhados, com a animação de entrada
+   (surge com fade e um zoom leve). É CSS puro: roda mesmo sem JS. */
+.hero-quadro {
+    position: absolute;
+    inset: 0;
+    animation: hero-entrada 1.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes hero-entrada {
+    from {
+        opacity: 0;
+        transform: scale(1.1);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Os dois ocupam todo o espaço e MANTÊM A PROPORÇÃO (object-fit: cover
+   corta as bordas em vez de esticar a imagem). */
+.hero-imagem-estatica,
+.hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---------- CAMADA 2: textos ---------- */
+.hero-conteudo {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    max-width: var(--largura-maxima);
+    margin-inline: auto;
+}
+
+.hero-texto {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-inline: 1.5rem;
+    text-align: left;
+
+    /* EFEITO DE SAÍDA AO ROLAR (parallax com blur).
+       O JavaScript só escreve --saida (0 = topo, 1 = já saiu);
+       o CSS decide como isso vira movimento, transparência e desfoque. */
+    opacity: calc(1 - var(--saida, 0));
+    transform: translateY(calc(var(--saida, 0) * -60px));
+    filter: blur(calc(var(--saida, 0) * 15px));
+}
+
+/* Quando já saiu por completo, esconde de vez (some do Tab também). */
+.hero-texto.hero-texto-oculto {
+    visibility: hidden;
+}
+
+.hero-etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.hero-etiqueta-ponto {
+    width: 0.5rem;
+    height: 0.5rem;
+    background: var(--pedra-900);
+    border-radius: 50%;
+}
+
+.hero-etiqueta-texto {
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--pedra-500);
+}
+
+/* TÍTULO PRINCIPAL
+   O tamanho da fonte é calculado pelo navegador:
+     clamp( MÍNIMO , min( LIMITE-LARGURA , LIMITE-ALTURA ) , MÁXIMO )
+   - LIMITE-LARGURA (vw): a frase mais longa sempre cabe na coluna.
+   - LIMITE-ALTURA (vh): o bloco todo cabe entre a navbar e o fim da tela
+     (descontando selo, parágrafo e botões). Evita "A caneta" ficar
+     escondida atrás da navbar em telas baixas.
+   - MÁXIMO: o tamanho do design original em telas grandes. */
+.hero-titulo {
+    margin-bottom: 1.25rem;
+    margin-left: -0.25rem;
+    font-family: var(--fonte-titulo);
+    font-size: clamp(2.25rem, min(10vw, calc(41.6vh - 10.4rem)), 3rem);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 0.8;
+    color: var(--pedra-900);
+}
+
+/* Cada linha do título é um <span> em bloco (um <div> dentro de <h1> é HTML inválido). */
+.hero-titulo-linha {
+    display: block;
+}
+
+.hero-titulo-linha.sem-quebra {
+    white-space: nowrap; /* "mais tecnológica" nunca quebra em 2 linhas */
+}
+
+.hero-descricao {
+    max-width: 32rem;
+    margin-bottom: 2rem;
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height: 1.625;
+    color: var(--pedra-600);
+}
+
+.hero-botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* ---------- BOTÕES EM PÍLULA (Comprar Agora / Explorar) ---------- */
+.botao {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border: 1px solid transparent;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    transition: box-shadow 0.15s, transform 0.15s, border-color 0.15s;
+}
+
+.botao:hover {
+    transform: translateY(-0.25rem);
+}
+
+.botao-escuro {
+    background: var(--pedra-900);
+    color: #fff;
+    box-shadow: var(--sombra-lg);
+}
+
+.botao-escuro:hover {
+    box-shadow: var(--sombra-xl);
+}
+
+.botao-claro {
+    background: #fff;
+    color: var(--pedra-900);
+    box-shadow: var(--sombra-md);
+}
+
+.botao-claro:hover {
+    box-shadow: var(--sombra-lg);
+    border-color: var(--pedra-200);
+}
+
+/* A seta do "Explorar" desce um pouquinho no hover. */
+.botao-claro .icone {
+    transition: transform 0.15s;
+}
+
+.botao-claro:hover .icone {
+    transform: translateY(0.125rem);
+}
+
+/* ---------- DETALHES SOBRE A IMAGEM ---------- */
+
+/* Indicador "01" na lateral direita. mix-blend-mode: difference
+   inverte a cor conforme o que está atrás dele. */
+.hero-indicador {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    z-index: 30;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    transform: translateY(-50%);
+    mix-blend-mode: difference;
+    color: var(--pedra-400);
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+}
+
+.hero-indicador-linha {
+    width: 1px;
+    height: 3rem;
+    background: var(--pedra-300);
+}
+
+/* Dica "Scroll to Control" com a linha que desce sem parar. */
+.hero-dica-rolagem {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    transform: translateX(-50%);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.hero-dica-texto {
+    font-family: var(--fonte-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--pedra-500);
+}
+
+.hero-dica-trilho {
+    position: relative;
+    width: 1px;
+    height: 2rem;
+    overflow: hidden;
+    background: var(--pedra-400);
+}
+
+.hero-dica-linha {
+    position: absolute;
+    inset: 0;
+    background: var(--pedra-900);
+    animation: hero-linha-rolagem 1.5s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+}
+
+@keyframes hero-linha-rolagem {
+    0% {
+        transform: translateY(-100%); /* começa acima (escondida) */
+    }
+    100% {
+        transform: translateY(100%);  /* termina abaixo (escondida) */
+    }
+}
+
+/* Degradê no rodapé da Hero: suaviza a passagem para a próxima seção. */
+.hero-degrade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 8rem;
+    background: linear-gradient(to top, var(--pedra-50), transparent);
+    pointer-events: none;
+}
+
+/* ---------- INDICADOR DE CARREGAMENTO DOS FRAMES ---------- */
+.hero-carregamento {
+    position: absolute;
+    top: calc(var(--altura-navbar) + 1rem);
+    right: 1.5rem;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0.5rem;
+    font-family: var(--fonte-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--pedra-600);
+}
+
+/* O atributo hidden precisa vencer o "display: flex" acima. */
+.hero-carregamento[hidden] {
+    display: none;
+}
+
+.hero-carregamento progress {
+    width: 8rem;
+    height: 3px;
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--pedra-200);
+    overflow: hidden;
+}
+
+.hero-carregamento progress::-webkit-progress-bar {
+    background: var(--pedra-200);
+}
+
+.hero-carregamento progress::-webkit-progress-value {
+    background: var(--pedra-900);
+}
+
+.hero-carregamento progress::-moz-progress-bar {
+    background: var(--pedra-900);
+}
+
+/* ---------- TELAS MÉDIAS (≥ 768px) ---------- */
+@media (min-width: 768px) {
+    .hero-texto {
+        width: 83.3333%;            /* 10 de 12 colunas */
+        padding-left: 6rem;
+    }
+
+    .hero-titulo {
+        font-size: clamp(2.5rem, min(calc(9vw - 0.25rem), calc(41.6vh - 10.4rem)), 4.5rem);
+    }
+
+    .hero-descricao {
+        font-size: 1.25rem;
+    }
+
+    .hero-indicador {
+        display: flex;
+    }
+}
+
+/* ---------- TELAS GRANDES (≥ 1024px) ---------- */
+@media (min-width: 1024px) {
+    .hero-texto {
+        width: 58.3333%;            /* 7 de 12 colunas */
+    }
+
+    .hero-titulo {
+        font-size: clamp(2.5rem, min(calc(7.6vw - 1rem), calc(41.6vh - 10.4rem)), 5.5rem);
+    }
+}

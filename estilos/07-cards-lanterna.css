@@ -1,0 +1,198 @@
+/* =============================================================
+   ARQUIVO: 07-cards-lanterna.css
+   O QUE FAZ: seção "A ferramenta invisível": 3 cards com efeito
+              "lanterna" (um brilho que segue o mouse).
+
+   COMO O EFEITO FUNCIONA:
+   1. O JS (scripts/05-cards-lanterna.js) escreve no card:
+        --mouse-x: 120px; --mouse-y: 80px
+   2. Aqui o CSS lê esses valores com var(--mouse-x) e desenha
+      um gradiente circular exatamente nesse ponto.
+   ============================================================= */
+.secao-cards {
+    position: relative;
+    z-index: 20;
+    padding-block: 6rem;
+    overflow: hidden;
+    background: var(--cor-fundo);
+    border-top: 1px solid var(--pedra-300);
+}
+
+.secao-cards .aviso-ficticio {
+    margin-inline: auto;
+}
+
+.cards-cabecalho {
+    margin-bottom: 6rem;
+    text-align: center;
+}
+
+.cards-etiqueta {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--pedra-500);
+}
+
+.cards-titulo {
+    max-width: 48rem;
+    margin-inline: auto;
+    font-family: var(--fonte-titulo);
+    font-size: 3rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: var(--pedra-900);
+}
+
+.cards-grade {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+.card-lanterna {
+    position: relative; /* referência para o ::after */
+    height: 400px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;   /* o brilho não vaza para fora do card */
+    background: #fff;
+    border: 1px solid var(--pedra-300);
+    border-radius: 2px;
+    transition: box-shadow 0.5s, transform 0.5s;
+}
+
+.card-lanterna:hover {
+    box-shadow: var(--sombra-2xl);
+    transform: translateY(-0.25rem);
+}
+
+/* ::after = camada criada pelo CSS, por cima do conteúdo do card. */
+.card-lanterna::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none; /* não atrapalha cliques */
+    /* Círculo de 250px de raio centrado no mouse. Se as variáveis
+       ainda não existirem (JS desligado), usa o centro (50%). */
+    background: radial-gradient(
+        250px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(28, 25, 23, 0.06),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.card-lanterna:hover::after {
+    opacity: 1;
+}
+
+/* Quadradinho do ícone: fica preto, com ícone branco, no hover. */
+.card-icone {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pedra-100);
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    color: var(--pedra-900);
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.card-lanterna:hover .card-icone {
+    background: var(--pedra-900);
+    color: #fff;
+}
+
+.card-titulo {
+    margin-bottom: 0.75rem;
+    font-family: var(--fonte-titulo);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 2rem;
+}
+
+.card-texto {
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: var(--pedra-500);
+}
+
+/* Barra de progresso: largura 0 → 100% no hover. */
+.card-barra {
+    height: 0.25rem;
+    margin-top: 2rem;
+    overflow: hidden;
+    background: var(--pedra-100);
+}
+
+.card-barra-preenchida {
+    width: 0;
+    height: 100%;
+    background: var(--pedra-900);
+    transition: width 0.7s ease-out;
+}
+
+.card-lanterna:hover .card-barra-preenchida {
+    width: 100%;
+}
+
+/* A barra de cada card começa um pouquinho depois da anterior. */
+.card-lanterna:nth-child(2) .card-barra-preenchida {
+    transition-delay: 0.1s;
+}
+
+.card-lanterna:nth-child(3) .card-barra-preenchida {
+    transition-delay: 0.2s;
+}
+
+/* Decoração de fundo: círculo gigante desfocado que "pulsa". */
+.cards-brilho-fundo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1; /* atrás do conteúdo */
+    width: 800px;
+    height: 800px;
+    background: rgba(231, 229, 228, 0.5);
+    border-radius: 50%;
+    filter: blur(64px);
+    mix-blend-mode: multiply;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: cards-pulsar 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes cards-pulsar {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@media (min-width: 768px) {
+    .secao-cards {
+        padding-block: 8rem;
+    }
+
+    .cards-titulo {
+        font-size: 3.75rem;
+    }
+
+    .cards-grade {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

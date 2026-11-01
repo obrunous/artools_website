@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+  ARTOOLS — VERSÃO DE ESTUDO "PURA"
+  Só HTML + CSS + JavaScript nativo. Sem Tailwind, GSAP, Iconify,
+  CDN ou Google Fonts. Funciona sem internet.
+
+  Este é o arquivo que MONTA a página:
+    estilos/ → CSS (aparência)
+    scripts/ → JavaScript (comportamento)
+    midia/   → imagens, vídeo e os 192 frames da animação
+
+  Comece pelo LEIA-ME.md.
+
+  Atenção: "Artools", o produto, os números e as afirmações técnicas
+  são FICTÍCIOS (projeto de estudo). Veja os avisos na própria página.
+=====================================================================
+-->
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Caneta Mais Tecnológica do Mundo | Precision Series</title>
+    <meta name="description" content="Página de estudo (produto fictício): landing page da caneta Artools Precision Series feita só com HTML, CSS e JavaScript.">
+
+    <!-- Nossos estilos. A ordem importa: o que vem depois pode sobrescrever o anterior. -->
+    <link rel="stylesheet" href="estilos/01-base.css">
+    <link rel="stylesheet" href="estilos/02-texto-contorno.css">
+    <link rel="stylesheet" href="estilos/03-ruido-granulado.css">
+    <link rel="stylesheet" href="estilos/04-navbar.css">
+    <link rel="stylesheet" href="estilos/05-hero.css">
+    <link rel="stylesheet" href="estilos/06-secao-tecnologia.css">
+    <link rel="stylesheet" href="estilos/07-cards-lanterna.css">
+    <link rel="stylesheet" href="estilos/08-vitrine.css">
+    <link rel="stylesheet" href="estilos/09-rodape-e-modal.css">
+    <link rel="stylesheet" href="estilos/10-animacoes-surgimento.css">
+</head>
+
+<body>
+    <a class="link-pular" href="#conteudo">Pular para o conteúdo</a>
+
+    <!-- =============================================================
+         ÍCONES (sprite SVG inline)
+         Cada <symbol> é um ícone desenhado à mão. Para usar:
+           <svg class="icone"><use href="#icone-caneta"></use></svg>
+         Tudo local: nenhuma biblioteca de ícones é carregada.
+         ============================================================= -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="icone-caneta" viewBox="0 0 24 24">
+            <path d="M17.5 3.5a1.9 1.9 0 0 1 2.7 2.7L12 14.4l-3.7.9.9-3.7z" fill="currentColor" fill-opacity="0.3"/>
+            <path d="M11 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-4"/>
+            <path d="M17.5 3.5a1.9 1.9 0 0 1 2.7 2.7L12 14.4l-3.7.9.9-3.7z"/>
+        </symbol>
+        <symbol id="icone-sacola" viewBox="0 0 24 24">
+            <path d="M5 8h14l-1 12H6z"/>
+            <path d="M9 8V7a3 3 0 0 1 6 0v1"/>
+        </symbol>
+        <symbol id="icone-menu" viewBox="0 0 24 24">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+        </symbol>
+        <symbol id="icone-fechar" viewBox="0 0 24 24">
+            <path d="M6 6l12 12M18 6L6 18"/>
+        </symbol>
+        <symbol id="icone-seta-baixo" viewBox="0 0 24 24">
+            <path d="M12 5v14M6 13l6 6 6-6"/>
+        </symbol>
+        <symbol id="icone-seta-direita" viewBox="0 0 24 24">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+        </symbol>
+        <symbol id="icone-dados" viewBox="0 0 24 24">
+            <path d="M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3z" fill="currentColor" fill-opacity="0.3"/>
+            <path d="M4 6c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3zM4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>
+        </symbol>
+        <symbol id="icone-onda-sonora" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="3"/>
+            <path d="M8 10v4M12 7v10M16 10v4"/>
+        </symbol>
+        <symbol id="icone-balanca" viewBox="0 0 24 24">
+            <path d="M12 4v16M7 20h10M5 8h14"/>
+            <path d="M5 8l-3 6a3 3 0 0 0 6 0zM19 8l-3 6a3 3 0 0 0 6 0z"/>
+        </symbol>
+        <symbol id="icone-coroa" viewBox="0 0 24 24">
+            <path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z" fill="currentColor" fill-opacity="0.3"/>
+            <path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/>
+        </symbol>
+    </svg>
+
+    <!-- Granulado por cima de tudo (estilos/03). Decorativo. -->
+    <div class="ruido-global" aria-hidden="true"></div>
+
+    <!-- ===================== 01 — NAVBAR ===================== -->
+    <header class="navbar" id="navbar">
+        <div class="navbar-fundo"></div>
+        <div class="navbar-conteudo">
+            <!-- Logo: agora é um link para o topo da página. -->
+            <a class="logo" href="#inicio" aria-label="ARTOOLS.PRO — ir para o início">
+                <span class="logo-icone">
+                    <svg class="icone" aria-hidden="true"><use href="#icone-caneta"></use></svg>
+                </span>
+                <span class="logo-nome">ARTOOLS<span class="logo-sufixo">.PRO</span></span>
+            </a>
+
+            <!-- Cada link leva a uma seção real (veja os id="" mais abaixo). -->
+            <nav class="menu-principal" id="menu-principal" aria-label="Principal">
+                <a href="#design">Design</a>
+                <a href="#tecnologia">Technology</a>
+                <a href="#especificacoes">Specs</a>
+            </nav>
+
+            <div class="navbar-acoes">
+                <!-- Sacola: um <button> de verdade, com nome para leitores de tela. -->
+                <button class="botao-icone" type="button" aria-label="Comprar (demonstração)" data-abrir-compra>
+                    <svg class="icone" aria-hidden="true"><use href="#icone-sacola"></use></svg>
+                </button>
+                <span class="navbar-divisor" aria-hidden="true"></span>
+                <!-- Botão do menu móvel. O JS atualiza aria-expanded e aria-label. -->
+                <button class="botao-icone botao-menu" id="botao-menu" type="button"
+                    aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu">
+                    <svg class="icone icone-abrir" aria-hidden="true"><use href="#icone-menu"></use></svg>
+                    <svg class="icone icone-fechar" aria-hidden="true"><use href="#icone-fechar"></use></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="conteudo">
+
+        <!-- ===================== 02 — HERO ===================== -->
+        <section class="hero" id="inicio" aria-label="Apresentação da caneta">
+            <div class="hero-palco">
+
+                <!-- CAMADA 1: imagem da caneta.
+                     A <img> estática (frame 1) aparece SEMPRE: sem JavaScript ou se a
+                     sequência falhar, ela é o plano B. O <canvas> fica por cima e é
+                     desenhado pelo JS (scripts/04-hero-frames.js). -->
+                <div class="hero-fundo">
+                    <div class="hero-quadro">
+                        <img class="hero-imagem-estatica" id="hero-imagem-estatica"
+                            src="midia/frames/frame_0001.jpg" width="1280" height="720"
+                            alt="Caneta Artools Precision Series sobre fundo claro">
+                        <canvas class="hero-canvas" id="hero-canvas" width="1280" height="720" aria-hidden="true"></canvas>
+                    </div>
+                </div>
+
+                <!-- CAMADA 2: textos. -->
+                <div class="hero-conteudo">
+                    <div class="hero-texto" id="hero-texto">
+                        <div class="hero-etiqueta revelar atraso-1">
+                            <span class="hero-etiqueta-ponto"></span>
+                            <span class="hero-etiqueta-texto">Precision Series</span>
+                        </div>
+
+                        <!-- Único <h1> da página. -->
+                        <h1 class="hero-titulo">
+                            <span class="hero-titulo-linha revelar atraso-1">A caneta</span>
+                            <span class="hero-titulo-linha sem-quebra texto-contorno revelar atraso-2">mais tecnológica</span>
+                            <span class="hero-titulo-linha revelar atraso-3">do mundo.</span>
+                        </h1>
+
+                        <p class="hero-descricao revelar atraso-4">
+                            A Artools Precision Pen redefine o equilíbrio entre peso, fluxo e design. Feita para criadores
+                            que exigem perfeição em cada traço.
+                        </p>
+
+                        <div class="hero-botoes revelar atraso-5">
+                            <!-- Abre a janela de demonstração (não existe compra real). -->
+                            <button class="botao botao-escuro" type="button" data-abrir-compra>Comprar Agora</button>
+                            <!-- Link de verdade para a seção seguinte. -->
+                            <a class="botao botao-claro" href="#tecnologia">
+                                Explorar
+                                <svg class="icone" aria-hidden="true"><use href="#icone-seta-baixo"></use></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicador de carregamento dos 192 frames.
+                     <progress> já é acessível. role="status" avisa leitores de tela
+                     (de forma educada) quando o texto muda. -->
+                <div class="hero-carregamento" id="hero-carregamento" role="status" hidden>
+                    <span id="hero-carregamento-texto">Carregando animação… 0%</span>
+                    <progress id="hero-progresso" max="192" value="0" aria-label="Progresso do carregamento da animação"></progress>
+                </div>
+
+                <div class="hero-indicador" aria-hidden="true">
+                    <span>01</span>
+                    <span class="hero-indicador-linha"></span>
+                </div>
+
+                <div class="hero-dica-rolagem" aria-hidden="true">
+                    <span class="hero-dica-texto">Scroll to Control</span>
+                    <span class="hero-dica-trilho"><span class="hero-dica-linha"></span></span>
+                </div>
+
+                <div class="hero-degrade" aria-hidden="true"></div>
+            </div>
+        </section>
+
+        <!-- ===================== 03 — TECNOLOGIA ===================== -->
+        <section class="secao-tecnologia" id="tecnologia" aria-labelledby="titulo-tecnologia">
+            <div class="secao-tecnologia-ruido" aria-hidden="true"></div>
+
+            <div class="container-secao">
+                <div class="marca-dagua" aria-hidden="true">PRECISION</div>
+
+                <div class="secao-cabecalho revelar">
+                    <div class="etiqueta">
+                        <span class="etiqueta-ponto"></span>
+                        <span class="etiqueta-texto">Technology</span>
+                    </div>
+                    <h2 class="secao-titulo" id="titulo-tecnologia">
+                        Engenharia Suíça.<br>
+                        <span class="texto-suave">Precisão Molecular.</span>
+                    </h2>
+                    <p class="secao-descricao">
+                        Nossa arquitetura de fluxo proprietária sincroniza a deposição de tinta em tempo real. Construída
+                        sobre um chassi de alumínio aeroespacial usinado em CNC de 5 eixos.
+                    </p>
+                </div>
+
+                <div class="tecnologia-grade" id="especificacoes">
+                    <!-- Imagem à esquerda -->
+                    <div class="tecnologia-imagem">
+                        <div class="tecnologia-imagem-fundo" aria-hidden="true"></div>
+                        <div class="tecnologia-moldura revelar atraso-3">
+                            <div class="tecnologia-scanner" aria-hidden="true"></div>
+                            <img class="tecnologia-foto" src="midia/imagens/artools_tech_feature.jpg"
+                                width="640" height="640" loading="lazy"
+                                alt="Detalhe técnico da caneta Artools">
+                            <div class="cartao-vidro cartao-vidro-topo">
+                                <svg class="icone" aria-hidden="true"><use href="#icone-dados"></use></svg>
+                                <div class="cartao-vidro-legenda">Core_Alu_6061</div>
+                                <div class="barra-fina" aria-hidden="true"><div class="barra-fina-preenchida"></div></div>
+                            </div>
+                            <div class="cartao-vidro cartao-vidro-base">
+                                <div class="cartao-vidro-numero">0.3<span class="cartao-vidro-unidade">mm</span></div>
+                                <div class="cartao-vidro-legenda">Tip_Precision</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lista à direita: 3 itens com a mesma estrutura. -->
+                    <ul class="lista-caracteristicas">
+                        <li class="caracteristica revelar atraso-3">
+                            <div class="caracteristica-cabecalho">
+                                <span class="caracteristica-numero">01</span>
+                                <h3 class="caracteristica-titulo">Alumínio Aeroespacial</h3>
+                            </div>
+                            <p class="caracteristica-texto">
+                                Estrutura monobloco usinada em Alumínio 6061-T6. Leveza extrema (14g) com resistência
+                                estrutural de nível militar.
+                            </p>
+                        </li>
+                        <li class="caracteristica revelar atraso-4">
+                            <div class="caracteristica-cabecalho">
+                                <span class="caracteristica-numero">02</span>
+                                <h3 class="caracteristica-titulo">Fluxo Híbrido</h3>
+                            </div>
+                            <p class="caracteristica-texto">
+                                Sistema de tinta de baixa viscosidade com regulação por capilaridade assistida. O traço
+                                nunca falha até 15°.
+                            </p>
+                        </li>
+                        <li class="caracteristica revelar atraso-5">
+                            <div class="caracteristica-cabecalho">
+                                <span class="caracteristica-numero">03</span>
+                                <h3 class="caracteristica-titulo">Grip Texturizado</h3>
+                            </div>
+                            <p class="caracteristica-texto">
+                                Micro-usinagem a laser cria uma superfície de aderência perfeita (Ra 0.8µm) sem acumular
+                                resíduos.
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <p class="aviso-ficticio">
+                    <strong>Conteúdo fictício.</strong> Este é um projeto de estudo: o produto não existe.
+                    "Engenharia Suíça", "Precisão Molecular", o alumínio 6061-T6, os 14g, os 0.3mm, o "traço que nunca
+                    falha até 15°" e o Ra 0.8µm são textos de exemplo, sem comprovação nem medição real.
+                </p>
+            </div>
+        </section>
+
+        <!-- ===================== 04 — CARDS LANTERNA ===================== -->
+        <section class="secao-cards" id="design" aria-labelledby="titulo-cards">
+            <div class="container-secao">
+                <div class="cards-cabecalho revelar">
+                    <span class="cards-etiqueta">Architecture of Thought</span>
+                    <h2 class="cards-titulo" id="titulo-cards">
+                        A ferramenta invisível para<br>
+                        <span class="texto-suave">ideias tangíveis.</span>
+                    </h2>
+                </div>
+
+                <div class="cards-grade">
+                    <article class="card-lanterna revelar atraso-2">
+                        <div class="card-icone">
+                            <svg class="icone" aria-hidden="true"><use href="#icone-caneta"></use></svg>
+                        </div>
+                        <div>
+                            <h3 class="card-titulo">Fluxo Contínuo</h3>
+                            <p class="card-texto">A tinta flui sem interrupções, permitindo que seus pensamentos corram
+                                livremente para o papel sem fricção.</p>
+                        </div>
+                        <div class="card-barra" aria-hidden="true"><div class="card-barra-preenchida"></div></div>
+                    </article>
+
+                    <article class="card-lanterna revelar atraso-3">
+                        <div class="card-icone">
+                            <svg class="icone" aria-hidden="true"><use href="#icone-onda-sonora"></use></svg>
+                        </div>
+                        <div>
+                            <h3 class="card-titulo">Silêncio Absoluto</h3>
+                            <p class="card-texto">Mecanismo de clique silencioso e ponta amortecida. Escreva em qualquer
+                                ambiente sem distrações.</p>
+                        </div>
+                        <div class="card-barra" aria-hidden="true"><div class="card-barra-preenchida"></div></div>
+                    </article>
+
+                    <article class="card-lanterna revelar atraso-4">
+                        <div class="card-icone">
+                            <svg class="icone" aria-hidden="true"><use href="#icone-balanca"></use></svg>
+                        </div>
+                        <div>
+                            <h3 class="card-titulo">Equilíbrio Neutro</h3>
+                            <p class="card-texto">Centro de gravidade estudado para repousar na junção da mão, reduzindo
+                                a fadiga em 40%.</p>
+                        </div>
+                        <div class="card-barra" aria-hidden="true"><div class="card-barra-preenchida"></div></div>
+                    </article>
+                </div>
+
+                <p class="aviso-ficticio">
+                    <strong>Conteúdo fictício.</strong> A "redução de fadiga em 40%" e os demais benefícios
+                    descritos nos cards são exemplos de texto publicitário, sem estudo ou teste por trás.
+                </p>
+            </div>
+
+            <div class="cards-brilho-fundo" aria-hidden="true"></div>
+        </section>
+
+        <!-- ===================== 05 — VITRINE ===================== -->
+        <section class="vitrine" id="vitrine" aria-label="Vitrine Artools Pro">
+            <!-- Vídeo decorativo: mudo (obrigatório para autoplay), em loop, sem controles.
+                 O JS o pausa quando a seção sai da tela. -->
+            <video class="vitrine-video" id="vitrine-video" autoplay loop muted playsinline preload="metadata"
+                aria-hidden="true" tabindex="-1">
+                <source src="midia/videos/video.mp4" type="video/mp4">
+            </video>
+            <div class="vitrine-pelicula" aria-hidden="true"></div>
+
+            <div class="vitrine-card revelar-zoom atraso-2">
+                <div class="vitrine-brilho" aria-hidden="true"></div>
+                <div class="vitrine-feixe" aria-hidden="true"><div class="vitrine-feixe-giro"></div></div>
+
+                <div class="vitrine-conteudo">
+                    <div class="vitrine-medalha">
+                        <svg class="icone" aria-hidden="true"><use href="#icone-coroa"></use></svg>
+                    </div>
+                    <h2 class="vitrine-titulo">Artools<span class="vitrine-titulo-leve">Pro</span></h2>
+                    <div class="vitrine-divisor" aria-hidden="true"></div>
+                    <p class="vitrine-legenda">Signature Series • 2026</p>
+                    <button class="botao-cortina" type="button" data-abrir-compra>
+                        <span class="botao-cortina-texto">
+                            Get Early Access
+                            <svg class="icone" aria-hidden="true"><use href="#icone-seta-direita"></use></svg>
+                        </span>
+                        <span class="botao-cortina-fundo" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================== 06 — RODAPÉ ===================== -->
+    <footer class="rodape">
+        <div class="rodape-conteudo">
+            <div class="rodape-logo">
+                <span class="rodape-logo-icone">
+                    <svg class="icone" aria-hidden="true"><use href="#icone-caneta"></use></svg>
+                </span>
+                <span class="rodape-logo-nome">ARTOOLS<span class="rodape-logo-sufixo">.PRO</span></span>
+            </div>
+            <!-- Estas páginas não existem neste projeto, então NÃO são links. -->
+            <ul class="rodape-links">
+                <li><span class="rodape-indisponivel" title="Indisponível nesta demonstração">Privacy<span class="visualmente-oculto"> (indisponível nesta demonstração)</span></span></li>
+                <li><span class="rodape-indisponivel" title="Indisponível nesta demonstração">Terms<span class="visualmente-oculto"> (indisponível nesta demonstração)</span></span></li>
+                <li><span class="rodape-indisponivel" title="Indisponível nesta demonstração">Support<span class="visualmente-oculto"> (indisponível nesta demonstração)</span></span></li>
+            </ul>
+            <p class="rodape-direitos">
+                &copy; 2026 Artools — marca e empresa fictícias, criadas para estudo.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ===================== MODAL DA COMPRA (DEMONSTRAÇÃO) =====================
+         <dialog> é um elemento nativo: showModal() cuida da camada, do foco e da tecla Esc.
+         Não existe checkout, pagamento, cadastro nem confirmação de compra. -->
+    <dialog class="modal" id="modal-compra" aria-labelledby="modal-titulo" aria-describedby="modal-texto">
+        <form method="dialog">
+            <button class="modal-fechar-x" type="submit" aria-label="Fechar janela">
+                <svg class="icone" aria-hidden="true"><use href="#icone-fechar"></use></svg>
+            </button>
+        </form>
+        <span class="modal-selo">Demonstração</span>
+        <h2 class="modal-titulo" id="modal-titulo">Nenhuma compra será feita</h2>
+        <p class="modal-texto" id="modal-texto">
+            A Artools Precision Pen é um produto fictício deste projeto de estudo. Esta página não tem
+            checkout, pagamento, cadastro nem envio de dados: nada foi comprado, reservado ou enviado.
+        </p>
+        <form method="dialog">
+            <button class="botao botao-escuro" type="submit">Entendi</button>
+        </form>
+    </dialog>
+
+    <!-- SCRIPTS: no fim do <body>, quando o HTML acima já existe.
+         Cada arquivo é independente: se um falhar, os outros continuam. -->
+    <script src="scripts/01-menu-movel.js"></script>
+    <script src="scripts/02-modal-compra.js"></script>
+    <script src="scripts/03-surgimento-ao-rolar.js"></script>
+    <script src="scripts/04-hero-frames.js"></script>
+    <script src="scripts/05-cards-lanterna.js"></script>
+    <script src="scripts/06-video-vitrine.js"></script>
+</body>
+
+</html>

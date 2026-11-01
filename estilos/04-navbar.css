@@ -1,0 +1,176 @@
+/* =============================================================
+   ARQUIVO: 04-navbar.css
+   O QUE FAZ: barra de navegação fixa no topo, com menu móvel.
+   MOBILE FIRST: o CSS sem media query vale para o celular;
+   @media (min-width: 768px) ajusta para telas maiores.
+   ============================================================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+/* Fundo "vidro fosco": branco 70% + desfoque do que está atrás. */
+.navbar-fundo {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.7);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(231, 229, 228, 0.5);
+}
+
+/* Conteúdo: logo | links | ações. flex-wrap deixa os links caírem
+   para a linha de baixo no celular. */
+.navbar-conteudo {
+    position: relative;
+    max-width: var(--largura-maxima);
+    margin-inline: auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ---------- LOGO ---------- */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icone {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pedra-900);
+    color: #fff;
+    border-radius: 2px;
+    font-size: 1.25rem;
+    transition: transform 0.5s;
+}
+
+/* Gira 90° quando o mouse (ou o foco) está no logo inteiro. */
+.logo:hover .logo-icone,
+.logo:focus-visible .logo-icone {
+    transform: rotate(90deg);
+}
+
+.logo-nome {
+    font-family: var(--fonte-titulo);
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+}
+
+.logo-sufixo {
+    color: var(--pedra-400);
+}
+
+/* ---------- LINKS ---------- */
+.menu-principal {
+    order: 3;              /* vai para o fim da linha de flex... */
+    flex-basis: 100%;      /* ...ocupando uma linha inteira (só no celular) */
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding-top: 0.75rem;
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--pedra-500);
+}
+
+.menu-principal a {
+    transition: color 0.15s;
+}
+
+.menu-principal a:hover {
+    color: var(--pedra-900);
+}
+
+/* ---------- AÇÕES (sacola e botão do menu) ---------- */
+.navbar-acoes {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.botao-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    transition: color 0.15s;
+}
+
+.botao-icone:hover {
+    color: var(--pedra-500);
+}
+
+.navbar-divisor {
+    display: none;
+    width: 1px;
+    height: 1rem;
+    background: var(--pedra-300);
+}
+
+/* O botão hambúrguer só existe quando o JavaScript confirma
+   que o menu móvel funciona (classe .menu-pronto no <html>). */
+.botao-menu {
+    display: none;
+}
+
+/* Troca o ícone: hambúrguer quando fechado, X quando aberto. */
+.botao-menu .icone-fechar {
+    display: none;
+}
+
+.botao-menu[aria-expanded="true"] .icone-abrir {
+    display: none;
+}
+
+.botao-menu[aria-expanded="true"] .icone-fechar {
+    display: block;
+}
+
+/* ---------- MENU MÓVEL (só com JavaScript pronto) ---------- */
+@media (max-width: 767.98px) {
+    .menu-pronto .botao-menu {
+        display: inline-flex;
+    }
+
+    /* Fechado por padrão... */
+    .menu-pronto .menu-principal {
+        display: none;
+    }
+
+    /* ...e aberto quando o JS põe .menu-aberto na navbar. */
+    .menu-pronto .navbar.menu-aberto .menu-principal {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding-block: 1.25rem 0.5rem;
+    }
+}
+
+/* ---------- TELAS MÉDIAS E GRANDES (≥ 768px) ---------- */
+@media (min-width: 768px) {
+    .menu-principal {
+        order: 0;
+        flex-basis: auto;
+        gap: 2rem;
+        padding-top: 0;
+    }
+
+    .navbar-divisor {
+        display: block;
+    }
+}

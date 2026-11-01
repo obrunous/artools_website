@@ -1,0 +1,204 @@
+/* =============================================================
+   ARQUIVO: 08-vitrine.css
+   O QUE FAZ: seção escura com vídeo de fundo e um card brilhante.
+   ============================================================= */
+.vitrine {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--pedra-900);
+}
+
+.vitrine-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* preenche sem esticar */
+    opacity: 0.6;
+}
+
+/* Película escura + leve desfoque (melhora a leitura do texto). */
+.vitrine-pelicula {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+}
+
+.vitrine-card {
+    position: relative;
+    z-index: 10;
+    margin-inline: 1.5rem;
+}
+
+/* CAMADA DE BRILHO: degradê borrado atrás do card.
+   Fraco (20%) normalmente, forte (75%) no hover. */
+.vitrine-brilho {
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(to right, var(--pedra-100), var(--pedra-500));
+    border-radius: 1rem;
+    filter: blur(8px);
+    opacity: 0.2;
+    transition: opacity 1s;
+}
+
+.vitrine-card:hover .vitrine-brilho {
+    opacity: 0.75;
+    transition-duration: 0.2s;
+}
+
+/* FEIXE GIRANDO: um conic-gradient enorme girando devagar.
+   Só a borda aparece, porque o conteúdo do card tampa o centro. */
+.vitrine-feixe {
+    position: absolute;
+    inset: -2px;
+    overflow: hidden;
+    border-radius: 1rem;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.vitrine-card:hover .vitrine-feixe {
+    opacity: 1;
+}
+
+.vitrine-feixe-giro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent 0 340deg, #fff 360deg);
+    animation: vitrine-girar 8s linear infinite;
+}
+
+/* O translate mantém o centro da luz no centro do card
+   enquanto o rotate faz a volta completa. */
+@keyframes vitrine-girar {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* CONTEÚDO DO CARD: fundo preto 80% + desfoque forte. */
+.vitrine-conteudo {
+    position: relative;
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    box-shadow: var(--sombra-2xl);
+}
+
+/* Círculo branco com "aura". */
+.vitrine-medalha {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    font-size: 1.875rem;
+    color: #000;
+}
+
+.vitrine-titulo {
+    margin-bottom: 0.5rem;
+    font-family: var(--fonte-titulo);
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 2.5rem;
+    color: #fff;
+}
+
+.vitrine-titulo-leve {
+    font-weight: 300;
+    color: var(--pedra-400);
+}
+
+.vitrine-divisor {
+    width: 3rem;
+    height: 1px;
+    margin-block: 1rem;
+    background: var(--pedra-500);
+}
+
+.vitrine-legenda {
+    margin-bottom: 2rem;
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--pedra-300);
+}
+
+/* BOTÃO COM "CORTINA": um fundo cinza sobe de baixo no hover. */
+.botao-cortina {
+    position: relative;
+    padding: 0.75rem 2rem;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #000;
+    transition: transform 0.15s;
+}
+
+.botao-cortina:hover {
+    transform: scale(1.05);
+}
+
+.botao-cortina-texto {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.botao-cortina-fundo {
+    position: absolute;
+    inset: 0;
+    background: var(--pedra-200);
+    transform: translateY(100%);
+    transition: transform 0.3s;
+}
+
+.botao-cortina:hover .botao-cortina-fundo,
+.botao-cortina:focus-visible .botao-cortina-fundo {
+    transform: translateY(0);
+}
+
+/* Foco do teclado precisa aparecer em fundo escuro. */
+.vitrine :focus-visible {
+    outline-color: #fff;
+}
+
+@media (min-width: 768px) {
+    .vitrine-titulo {
+        font-size: 3rem;
+        line-height: 1;
+    }
+}

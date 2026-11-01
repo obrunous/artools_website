@@ -1,0 +1,222 @@
+/* =============================================================
+   ARQUIVO: 01-base.css
+   O QUE FAZ: estilos "globais" da página inteira:
+     - variáveis (cores, fontes, sombras) em :root
+     - um reset simples (substitui o "preflight" do Tailwind)
+     - corpo da página, foco do teclado e barra de rolagem
+   ============================================================= */
+
+/* -------------------------------------------------------------
+   1) VARIÁVEIS CSS (custom properties)
+   Declaradas em :root (= <html>), ficam disponíveis em qualquer
+   lugar com var(--nome). Mudou aqui, muda na página toda.
+   ------------------------------------------------------------- */
+:root {
+    /* Paleta "pedra" (tons de cinza quentes). Quanto maior o número, mais escura. */
+    --pedra-50: #fafaf9;
+    --pedra-100: #f5f5f4;
+    --pedra-200: #e7e5e4;
+    --pedra-300: #d6d3d1;
+    --pedra-400: #a8a29e;
+    --pedra-500: #78716c;
+    --pedra-600: #57534e;
+    --pedra-700: #44403c;
+    --pedra-800: #292524;
+    --pedra-900: #1c1917;
+    --pedra-950: #0c0a09;
+
+    /* Cor de fundo principal do site (bege-acinzentado). */
+    --cor-fundo: #eaeae5;
+
+    /* FONTES
+       Nenhuma fonte é baixada da internet. O navegador usa a primeira
+       da lista que existir no computador de quem abre a página.
+       Diferença para o original: ele usava Inter, Space Grotesk e
+       JetBrains Mono (Google Fonts). Se você tiver essas fontes
+       instaladas, elas serão usadas; senão entram as fontes do sistema. */
+    --fonte-texto: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --fonte-titulo: "Space Grotesk", "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+    --fonte-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    /* Sombras reutilizadas em vários componentes. */
+    --sombra-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --sombra-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --sombra-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    --sombra-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    /* Curva de animação: começa rápido e desacelera no final. */
+    --curva-suave: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Largura máxima do conteúdo e altura da navbar (65px = 64px do conteúdo + 1px de borda). */
+    --largura-maxima: 1440px;
+    --altura-navbar: 65px;
+}
+
+/* -------------------------------------------------------------
+   2) RESET SIMPLES
+   Navegadores aplicam margens e estilos próprios. Aqui
+   deixamos tudo "zerado" para controlar o visual por conta própria.
+   ------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box; /* padding e borda entram na largura declarada */
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+ul {
+    margin: 0;
+}
+
+h1,
+h2,
+h3 {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+img,
+video,
+canvas,
+svg {
+    display: block;
+}
+
+img,
+video {
+    max-width: 100%;
+}
+
+/* -------------------------------------------------------------
+   3) PÁGINA E CORPO
+   ------------------------------------------------------------- */
+html {
+    /* Ao navegar para uma âncora (#tecnologia), deixa um espaço no topo
+       do tamanho da navbar fixa. Assim ela não cobre o título da seção. */
+    scroll-padding-top: var(--altura-navbar);
+}
+
+/* Rolagem suave só para quem NÃO pediu menos movimento no sistema. */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+body {
+    min-height: 100vh;
+    font-family: var(--fonte-texto);
+    background-color: var(--cor-fundo);
+    color: var(--pedra-900);
+    line-height: 1.5;
+    /* Esconde a rolagem horizontal causada por elementos que "vazam". */
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Cor da seleção de texto com o mouse. */
+::selection {
+    background: var(--pedra-800);
+    color: #fff;
+}
+
+/* -------------------------------------------------------------
+   4) ACESSIBILIDADE
+   ------------------------------------------------------------- */
+
+/* Contorno visível quando se navega pelo teclado (Tab). */
+:focus-visible {
+    outline: 2px solid var(--pedra-900);
+    outline-offset: 3px;
+}
+
+/* Texto só para leitores de tela (some da vista, mas continua no HTML). */
+.visualmente-oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Link "Ir para o conteúdo": só aparece quando recebe foco do teclado. */
+.link-pular {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--pedra-900);
+    color: #fff;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transform: translateY(-200%);
+}
+
+.link-pular:focus {
+    transform: translateY(0);
+}
+
+/* -------------------------------------------------------------
+   5) ÍCONES (SVG inline do sprite no começo do <body>)
+   Todos usam currentColor: herdam a cor do texto ao redor.
+   O tamanho acompanha o font-size (1em).
+   ------------------------------------------------------------- */
+.icone {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* -------------------------------------------------------------
+   6) BARRA DE ROLAGEM PERSONALIZADA (Chrome, Edge, Safari)
+   No Firefox continua com o visual padrão.
+   ------------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--cor-fundo);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pedra-300);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pedra-400);
+}

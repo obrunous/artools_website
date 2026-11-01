@@ -1,0 +1,17 @@
+/* =============================================================
+   ARQUIVO: 02-texto-contorno.css
+   O QUE FAZ: texto "vazado": só o contorno das letras aparece.
+   ONDE É USADO: "mais tecnológica" no título da Hero.
+   ============================================================= */
+.texto-contorno {
+    -webkit-text-stroke: 1px var(--pedra-900); /* linha de 1px em volta de cada letra */
+    color: transparent;                        /* miolo da letra invisível */
+}
+
+/* Plano B: se algum navegador não entender o contorno, o texto
+   ficaria invisível. Nesse caso, pintamos a letra normalmente. */
+@supports not (-webkit-text-stroke: 1px black) {
+    .texto-contorno {
+        color: var(--pedra-900);
+    }
+}

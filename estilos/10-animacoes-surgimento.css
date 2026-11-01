@@ -1,0 +1,75 @@
+/* =============================================================
+   ARQUIVO: 10-animacoes-surgimento.css
+   O QUE FAZ: os elementos "surgem" (sobem e desembaçam) quando
+              entram na tela.
+
+   COMO FUNCIONA (a ideia mais importante do projeto):
+   1. O JavaScript confirma que o IntersectionObserver existe e só
+      então adiciona .animacoes-ativas no <html>.
+      Sem isso, NADA fica escondido: se o JS falhar, o texto continua
+      legível.
+   2. Com .animacoes-ativas, os elementos .revelar começam
+      escondidos (transparentes, deslocados e borrados).
+   3. Quando um deles entra na tela, o JS adiciona .ativo.
+   4. O CSS anima sozinho do estado 2 para o estado 3 (transition).
+   5. Terminada a animação, o JS REMOVE as três classes. O elemento
+      volta a ter só os próprios estilos, então o hover dele não
+      briga mais com a animação de surgimento.
+   ============================================================= */
+
+/* Estado inicial (escondido) */
+.animacoes-ativas .revelar {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(8px);
+    will-change: transform, opacity, filter;
+    transition:
+        opacity 0.7s var(--curva-suave),
+        transform 0.7s var(--curva-suave),
+        filter 0.7s var(--curva-suave);
+    transition-delay: var(--atraso, 0ms);
+}
+
+.animacoes-ativas .revelar-zoom {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(6px);
+    will-change: transform, opacity, filter;
+    transition:
+        opacity 0.6s var(--curva-suave),
+        transform 0.6s var(--curva-suave),
+        filter 0.6s var(--curva-suave);
+    transition-delay: var(--atraso, 0ms);
+}
+
+/* Estado final (visível). Três classes no seletor = mais específico
+   que o estado inicial, então vence. */
+.animacoes-ativas .revelar.ativo,
+.animacoes-ativas .revelar-zoom.ativo {
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+/* Atrasos em cascata: cada número soma 70ms. Exemplo: atraso-3 = 210ms. */
+.atraso-1 { --atraso: 70ms; }
+.atraso-2 { --atraso: 140ms; }
+.atraso-3 { --atraso: 210ms; }
+.atraso-4 { --atraso: 280ms; }
+.atraso-5 { --atraso: 350ms; }
+.atraso-6 { --atraso: 420ms; }
+
+/* =============================================================
+   ACESSIBILIDADE: quem pede "reduzir movimento" no sistema
+   operacional recebe a página sem animações decorativas.
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+    }
+}

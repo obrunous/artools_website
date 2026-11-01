@@ -1,0 +1,162 @@
+/* =============================================================
+   ARQUIVO: 09-rodape-e-modal.css
+   O QUE FAZ: o rodapé e a janela (modal) da compra de demonstração.
+   ============================================================= */
+
+/* ---------- RODAPÉ ---------- */
+.rodape {
+    position: relative;
+    z-index: 20;
+    padding-block: 3rem;
+    background: var(--pedra-950);
+    color: var(--pedra-500);
+    border-top: 1px solid var(--pedra-800);
+}
+
+/* No celular, os 3 blocos ficam um embaixo do outro. */
+.rodape-conteudo {
+    max-width: var(--largura-maxima);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.rodape-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rodape-logo-icone {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pedra-800);
+    border-radius: 2px;
+    font-size: 0.875rem;
+    color: var(--pedra-300);
+}
+
+.rodape-logo-nome {
+    font-family: var(--fonte-titulo);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    color: var(--pedra-300);
+}
+
+.rodape-logo-sufixo {
+    color: var(--pedra-600);
+}
+
+.rodape-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Links institucionais SEM conteúdo: aparecem apagados e não são clicáveis. */
+.rodape-indisponivel {
+    cursor: not-allowed;
+    text-decoration: line-through;
+    text-decoration-color: var(--pedra-700);
+}
+
+.rodape-direitos {
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: var(--pedra-500);
+}
+
+.rodape :focus-visible {
+    outline-color: #fff;
+}
+
+/* ---------- MODAL (elemento nativo <dialog>) ----------
+   O <dialog> aberto com showModal() já traz sozinho: camada por cima
+   de tudo, foco preso dentro dele e fechamento com a tecla Esc. */
+.modal {
+    width: calc(100% - 3rem);
+    max-width: 28rem;
+    padding: 2.5rem 2rem 2rem;
+    background: var(--pedra-50);
+    color: var(--pedra-900);
+    border: 1px solid var(--pedra-200);
+    border-radius: 1rem;
+    box-shadow: var(--sombra-2xl);
+}
+
+/* ::backdrop = a película escura atrás do modal. */
+.modal::backdrop {
+    background: rgba(12, 10, 9, 0.6);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+.modal-selo {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--pedra-900);
+    border-radius: 9999px;
+    font-family: var(--fonte-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #fff;
+}
+
+.modal-titulo {
+    margin-bottom: 0.75rem;
+    font-family: var(--fonte-titulo);
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+}
+
+.modal-texto {
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.625;
+    color: var(--pedra-600);
+}
+
+.modal-fechar-x {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.25rem;
+    color: var(--pedra-500);
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.modal-fechar-x:hover {
+    background: var(--pedra-200);
+    color: var(--pedra-900);
+}
+
+@media (min-width: 768px) {
+    .rodape-conteudo {
+        padding-inline: 6rem;
+        flex-direction: row;
+    }
+}

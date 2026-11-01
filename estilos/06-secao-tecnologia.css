@@ -1,0 +1,364 @@
+/* =============================================================
+   ARQUIVO: 06-secao-tecnologia.css
+   O QUE FAZ: seção "Tecnologia": cabeçalho, imagem com efeitos
+              de hover e lista de 3 características.
+   Também define peças usadas por outras seções
+   (.container-secao, .etiqueta, .aviso-ficticio).
+   ============================================================= */
+
+/* ---------- PEÇAS COMPARTILHADAS ---------- */
+.container-secao {
+    position: relative;
+    z-index: 10;
+    max-width: var(--largura-maxima);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+}
+
+.etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.etiqueta-ponto {
+    width: 0.375rem;
+    height: 0.375rem;
+    background: var(--pedra-400);
+    border-radius: 50%;
+}
+
+.etiqueta-texto {
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--pedra-400);
+}
+
+.texto-suave {
+    color: var(--pedra-400);
+}
+
+/* Nota que marca valores e afirmações como FICTÍCIOS. */
+.aviso-ficticio {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--pedra-300);
+    max-width: 48rem;
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--pedra-500);
+}
+
+/* ---------- A SEÇÃO ---------- */
+.secao-tecnologia {
+    position: relative;
+    z-index: 20; /* fica por cima da Hero */
+    padding-block: 6rem;
+    overflow: hidden;
+    background: var(--pedra-50);
+    color: var(--pedra-900);
+    border-top: 1px solid var(--pedra-200);
+}
+
+/* Granulado bem fraco (3%) usando o mesmo SVG local do 03-ruido-granulado.css. */
+.secao-tecnologia-ruido {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.03;
+    background-image: var(--ruido);
+    pointer-events: none;
+}
+
+/* Marca d'água: a palavra PRECISION gigante e quase invisível. */
+.marca-dagua {
+    position: absolute;
+    top: -6rem;
+    right: -6rem;
+    z-index: 0;
+    overflow: hidden;
+    opacity: 0.03;
+    pointer-events: none;
+    user-select: none;
+    font-family: var(--fonte-titulo);
+    font-size: 15rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--pedra-900);
+}
+
+/* ---------- CABEÇALHO ---------- */
+.secao-cabecalho {
+    position: relative;
+    z-index: 10;
+    margin-bottom: 6rem;
+}
+
+.secao-titulo {
+    max-width: 56rem;
+    font-family: var(--fonte-titulo);
+    font-size: 3rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: var(--pedra-900);
+    mix-blend-mode: darken;
+}
+
+.secao-descricao {
+    max-width: 42rem;
+    margin-top: 2rem;
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height: 1.625;
+    color: var(--pedra-500);
+    text-wrap: balance; /* o navegador equilibra o tamanho das linhas */
+}
+
+/* ---------- GRADE: imagem + lista ---------- */
+.tecnologia-grade {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 coluna no celular */
+    gap: 4rem;
+    align-items: center;
+}
+
+/* ---------- IMAGEM ---------- */
+.tecnologia-imagem {
+    position: relative;
+}
+
+/* Cartão "fantasma" atrás da imagem, levemente girado. */
+.tecnologia-imagem-fundo {
+    position: absolute;
+    inset: 0;
+    background: rgba(231, 229, 228, 0.5);
+    border-radius: 1rem;
+    transform: rotate(2deg) scale(0.98);
+    transition: transform 0.7s;
+}
+
+.tecnologia-imagem:hover .tecnologia-imagem-fundo {
+    transform: rotate(1deg) scale(0.98);
+}
+
+.tecnologia-moldura {
+    position: relative;
+    aspect-ratio: 4 / 3; /* proporção fixa 4:3 */
+    overflow: hidden;
+    border-radius: 1rem;
+    background: var(--pedra-100);
+    box-shadow: 0 25px 50px -12px rgba(231, 229, 228, 0.5);
+    transition: transform 0.7s;
+}
+
+.tecnologia-imagem:hover .tecnologia-moldura {
+    transform: translateY(-0.5rem);
+}
+
+/* Efeito "scanner": faixa de luz que atravessa a imagem no hover. */
+.tecnologia-scanner {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: translateY(-100%);
+    transition: transform 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+.tecnologia-imagem:hover .tecnologia-scanner {
+    transform: translateY(100%);
+}
+
+/* A foto começa em preto e branco e ganha cor no hover. */
+.tecnologia-foto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.1);
+    transform: scale(1.05);
+    mix-blend-mode: multiply;
+    transition: filter 0.7s, transform 0.7s;
+}
+
+.tecnologia-imagem:hover .tecnologia-foto {
+    filter: grayscale(0) contrast(1.1);
+    transform: scale(1);
+}
+
+/* Cartõezinhos de "vidro" sobre a imagem (glassmorphism). */
+.cartao-vidro {
+    position: absolute;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.3);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--sombra-lg);
+    color: var(--pedra-800);
+    cursor: crosshair;
+    transition: background-color 0.15s;
+}
+
+.cartao-vidro:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.cartao-vidro-topo {
+    top: 2rem;
+    left: 2rem;
+}
+
+.cartao-vidro-base {
+    bottom: 2rem;
+    right: 2rem;
+    text-align: right;
+}
+
+.cartao-vidro .icone {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.cartao-vidro-legenda {
+    font-family: var(--fonte-mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--pedra-600);
+}
+
+.cartao-vidro-numero {
+    font-family: var(--fonte-titulo);
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 2.25rem;
+    color: var(--pedra-900);
+}
+
+.cartao-vidro-unidade {
+    margin-left: 0.25rem;
+    font-family: var(--fonte-mono);
+    font-size: 0.875rem;
+    font-weight: 400;
+    vertical-align: top;
+    color: var(--pedra-500);
+}
+
+/* Barrinha de progresso preenchida em 80%. */
+.barra-fina {
+    height: 2px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+    border-radius: 9999px;
+    background: rgba(28, 25, 23, 0.2);
+}
+
+.barra-fina-preenchida {
+    width: 80%;
+    height: 100%;
+    background: var(--pedra-900);
+}
+
+/* ---------- LISTA DE CARACTERÍSTICAS ---------- */
+.lista-caracteristicas {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.caracteristica {
+    padding: 1.5rem;
+    border: 1px solid transparent;
+    border-radius: 0.75rem;
+    cursor: crosshair;
+    transition: background-color 0.5s, box-shadow 0.5s, border-color 0.5s;
+}
+
+.caracteristica:hover {
+    background: #fff;
+    border-color: var(--pedra-100);
+    box-shadow: 0 20px 25px -5px rgba(231, 229, 228, 0.5), 0 8px 10px -6px rgba(231, 229, 228, 0.5);
+}
+
+.caracteristica-cabecalho {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.caracteristica-numero {
+    font-family: var(--fonte-mono);
+    font-size: 0.75rem;
+    color: var(--pedra-400);
+    transition: color 0.3s, transform 0.3s;
+}
+
+.caracteristica:hover .caracteristica-numero {
+    color: var(--pedra-900);
+    transform: scale(1.1);
+}
+
+.caracteristica-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 2rem;
+    color: var(--pedra-900);
+    transition: transform 0.3s;
+}
+
+.caracteristica:hover .caracteristica-titulo {
+    transform: translateX(0.25rem);
+}
+
+.caracteristica-texto {
+    padding-left: 1rem;
+    border-left: 1px solid var(--pedra-200);
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: var(--pedra-500);
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.caracteristica:hover .caracteristica-texto {
+    color: var(--pedra-600);
+    border-left-color: var(--pedra-900);
+}
+
+/* ---------- TELAS MÉDIAS E GRANDES ---------- */
+@media (min-width: 768px) {
+    .container-secao {
+        padding-inline: 6rem;
+    }
+
+    .secao-tecnologia {
+        padding-block: 8rem;
+    }
+
+    .secao-titulo {
+        font-size: 4.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* 12 colunas: imagem com 7 e lista com 5. */
+    .tecnologia-grade {
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .tecnologia-imagem {
+        grid-column: span 7;
+    }
+
+    .lista-caracteristicas {
+        grid-column: span 5;
+    }
+}
