@@ -4,7 +4,7 @@
 
    O TRUQUE "STICKY + ALTURA GRANDE":
    - .hero tem 200vh (2 telas) de altura.
-   - .hero-palco, dentro dela, tem 1 tela e fica "grudada" no topo
+   - .hero-palco, dentro dela, tem pelo menos 1 tela e fica "grudada" no topo
      (position: sticky) enquanto você rola.
    - O JavaScript mede quanto da .hero já passou e troca o frame
      desenhado no canvas (assets/js/04-hero-frames.js).
@@ -20,7 +20,8 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    min-height: 100svh;
     overflow: hidden;
 }
 
@@ -67,18 +68,22 @@
     position: relative;
     z-index: 10;
     width: 100%;
-    height: 100%;
     max-width: var(--largura-maxima);
     margin-inline: auto;
 }
 
 .hero-texto {
-    height: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     padding-inline: 1.5rem;
+    /* Reserva o espaço da navbar fixa. Em telas baixas, o palco cresce
+       para acomodar o conteúdo sem cortar o início do título. */
+    padding-top: calc(var(--altura-navbar) + 2rem);
+    padding-bottom: 6rem;
     text-align: left;
 
     /* EFEITO DE SAÍDA AO ROLAR (parallax com blur).
@@ -116,22 +121,16 @@
     color: var(--pedra-500);
 }
 
-/* TÍTULO PRINCIPAL
-   O tamanho da fonte é calculado pelo navegador:
-     clamp( MÍNIMO , min( LIMITE-LARGURA , LIMITE-ALTURA ) , MÁXIMO )
-   - LIMITE-LARGURA (vw): a frase mais longa sempre cabe na coluna.
-   - LIMITE-ALTURA (vh): o bloco todo cabe entre a navbar e o fim da tela
-     (descontando selo, parágrafo e botões). Evita "A caneta" ficar
-     escondida atrás da navbar em telas baixas.
-   - MÁXIMO: o tamanho do design original em telas grandes. */
+/* Título grande e proporcional à largura disponível.
+   O espaço da navbar é reservado no bloco, sem encolher a fonte. */
 .hero-titulo {
     margin-bottom: 1.25rem;
     margin-left: -0.25rem;
     font-family: var(--fonte-titulo);
-    font-size: clamp(2.25rem, min(10vw, calc(41.6vh - 10.4rem)), 3rem);
+    font-size: clamp(1.75rem, 8vw, 3.5rem);
     font-weight: 700;
     letter-spacing: -0.05em;
-    line-height: 0.8;
+    line-height: 0.95;
     color: var(--pedra-900);
 }
 
@@ -347,7 +346,7 @@
     }
 
     .hero-titulo {
-        font-size: clamp(2.5rem, min(calc(9vw - 0.25rem), calc(41.6vh - 10.4rem)), 4.5rem);
+        font-size: clamp(3.5rem, 7.5vw, 5.5rem);
     }
 
     .hero-descricao {
@@ -362,10 +361,10 @@
 /* ---------- TELAS GRANDES (≥ 1024px) ---------- */
 @media (min-width: 1024px) {
     .hero-texto {
-        width: 58.3333%;            /* 7 de 12 colunas */
+        width: 75%;
     }
 
     .hero-titulo {
-        font-size: clamp(2.5rem, min(calc(7.6vw - 1rem), calc(41.6vh - 10.4rem)), 5.5rem);
+        font-size: clamp(4rem, 7vw, 7.5rem);
     }
 }
