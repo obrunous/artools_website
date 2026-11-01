@@ -1,8 +1,14 @@
 # ARTOOLS
 
-Página de estudo desenvolvida com HTML, CSS e JavaScript nativo. Inclui animação por sequência de imagens, menu responsivo, cards interativos e uma janela de demonstração de compra.
+Projeto de estudo desenvolvido a partir do curso **Webdesign com IA**, da **Asimov Academy**, e adaptado para HTML, CSS e JavaScript nativo. Inclui animação por sequência de imagens, menu responsivo, cards interativos e uma janela de demonstração de compra.
 
 O produto e a empresa apresentados são fictícios. Não há compra real.
+
+## Origem e objetivo
+
+Este repositório reúne a versão de estudo do projeto ARTOOLS produzido durante o curso. O objetivo é praticar a criação de interfaces com apoio de inteligência artificial e compreender a estrutura, os estilos e os comportamentos da página.
+
+A versão aqui organizada utiliza recursos locais e código nativo, com comentários e guias em português para facilitar o aprendizado. O histórico dessas adaptações está em [Refatoração](docs/refatoracao.md).
 
 ## Executar localmente
 

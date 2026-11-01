@@ -1,5 +1,7 @@
 # 📚 ARTOOLS — Versão de Estudo "Pura" (HTML + CSS + JavaScript)
 
+Projeto de estudo originado no curso **Webdesign com IA**, da **Asimov Academy**. Este documento descreve as adaptações da versão de estudo para HTML, CSS e JavaScript nativo.
+
 Refatoração de `ARTOOLS_ESTUDO` usando **apenas** HTML, CSS e JavaScript nativo.
 A pasta original não foi alterada.
 
